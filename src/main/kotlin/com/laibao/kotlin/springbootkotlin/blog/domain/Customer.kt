@@ -10,7 +10,7 @@ import javax.persistence.Id
  */
 
 @Entity
-class Customer (val firstName: String,
+data class Customer (val firstName: String,
                 val lastName: String,
                 @Id @GeneratedValue
                 val id: Long = -1): Serializable{
