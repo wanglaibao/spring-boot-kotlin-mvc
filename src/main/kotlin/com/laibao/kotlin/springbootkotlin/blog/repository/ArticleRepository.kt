@@ -8,5 +8,5 @@ import org.springframework.data.repository.CrudRepository
  */
 interface ArticleRepository : CrudRepository<Article,Long> {
 
-    fun findAllByOrderByAddedAtDesc(): List<Article>
+    fun findAllByOrderByAddedAtDesc(): Iterable<Article>
 }

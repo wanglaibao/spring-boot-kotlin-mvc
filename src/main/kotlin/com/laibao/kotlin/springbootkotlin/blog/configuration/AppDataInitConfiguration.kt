@@ -1,9 +1,14 @@
 package com.laibao.kotlin.springbootkotlin.blog.configuration
 
+import com.laibao.kotlin.springbootkotlin.blog.domain.Article
 import com.laibao.kotlin.springbootkotlin.blog.domain.Customer
+import com.laibao.kotlin.springbootkotlin.blog.domain.User
+import com.laibao.kotlin.springbootkotlin.blog.repository.ArticleRepository
 import com.laibao.kotlin.springbootkotlin.blog.repository.CustomerRepository
+import com.laibao.kotlin.springbootkotlin.blog.repository.UserRepository
 import org.slf4j.LoggerFactory
 import org.springframework.boot.CommandLineRunner
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -11,6 +16,7 @@ import org.springframework.context.annotation.Configuration
  * @author laibao wang
  */
 
+@EnableConfigurationProperties(BlogProperties::class)
 @Configuration
 class AppDataInitConfiguration {
     private val logger = LoggerFactory.getLogger(AppDataInitConfiguration::class.java)
@@ -45,4 +51,28 @@ class AppDataInitConfiguration {
         repository.findByLastName("Bauer").forEach { logger.info(it.toString()) }
         logger.info("")
     }
+
+    @Bean
+    fun databaseInitializer(userRepository: UserRepository,
+                            articleRepository: ArticleRepository) = CommandLineRunner {
+        val smaldini = User("smaldini", "Stéphane", "Maldini")
+        userRepository.save(smaldini)
+
+        articleRepository.save(Article(
+                "Reactor Bismuth is out",
+                "Lorem ipsum",
+                "dolor **sit** amet https://projectreactor.io/",
+                smaldini,
+                1
+        ))
+
+        articleRepository.save(Article(
+                "Reactor Aluminium has landed",
+                "Lorem ipsum",
+                "dolor **sit** amet https://projectreactor.io/",
+                smaldini,
+                2
+        ))
+    }
+
 }

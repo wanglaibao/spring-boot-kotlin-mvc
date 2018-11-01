@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository
  * @author laibao wang
  */
 interface CustomerRepository: CrudRepository<Customer, Long> {
-    fun findByLastName(lastName: String): List<Customer>
+    fun findByLastName(lastName: String): Iterable<Customer>
 }

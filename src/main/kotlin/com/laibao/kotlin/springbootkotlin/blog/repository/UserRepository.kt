@@ -8,5 +8,5 @@ import org.springframework.data.repository.CrudRepository
  * @author laibao wang
  */
 interface UserRepository : CrudRepository<User, String> {
-    fun findAllUsers(): List<User>
+    //fun findAllUsers(): Iterable<User>
 }
